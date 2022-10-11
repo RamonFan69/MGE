@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.util.Log;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -22,6 +23,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
 
         // drawer layout instance to toggle the menu icon to open
         // drawer and back button to close drawer
@@ -46,17 +49,22 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
         if (actionBarDrawerToggle.onOptionsItemSelected(item)) {
+
             return true;
         }
 
         switch (item.getItemId()){
             case R.id.einstellungen:
                 Intent intent = new Intent(this, Settings.class);
-                startActivity(intent);
+                this.startActivity(intent);
+                logStateChange("button Pressed");
+                return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
 
-
+    private static void logStateChange(String callback) {
+        Log.d("MGE.U02.DEBUG", "Method: " + callback);
+    }
 }
