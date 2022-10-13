@@ -26,8 +26,6 @@ public class MainActivity extends AppCompatActivity {
 
         insertButton = findViewById(R.id.fab);
         insertButton.setOnClickListener(v -> showInsertActivity());
-    }
-        /*
 
         // drawer layout instance to toggle the menu icon to open
         // drawer and back button to close drawer
@@ -41,6 +39,8 @@ public class MainActivity extends AppCompatActivity {
 
         // to make the Navigation drawer icon always appear on the action bar
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+
     }
 
     // override the onOptionsItemSelected()
@@ -67,9 +67,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+
+
+
+
     private static void logStateChange(String callback) {
         Log.d("MGE.U02.DEBUG", "Method: " + callback);
-    }*/
+    }
 
     private void showInsertActivity() {
         Intent intent = new Intent(this, InsertEvent.class);
