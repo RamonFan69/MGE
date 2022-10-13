@@ -15,7 +15,7 @@ import android.util.Log;
 
 
 public class MainActivity extends AppCompatActivity {
-    private View settingsButton;
+    private View insertButton;
     public DrawerLayout drawerLayout;
     public ActionBarDrawerToggle actionBarDrawerToggle;
 
@@ -24,7 +24,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
+        insertButton = findViewById(R.id.fab);
+        insertButton.setOnClickListener(v -> showInsertActivity());
+    }
+        /*
 
         // drawer layout instance to toggle the menu icon to open
         // drawer and back button to close drawer
@@ -66,5 +69,11 @@ public class MainActivity extends AppCompatActivity {
 
     private static void logStateChange(String callback) {
         Log.d("MGE.U02.DEBUG", "Method: " + callback);
+    }*/
+
+    private void showInsertActivity() {
+        Intent intent = new Intent(this, InsertEvent.class);
+        Log.d("showInsertActivity", "fab clicked");
+        this.startActivity(intent);
     }
 }
