@@ -7,6 +7,28 @@
     tools:context=".MainActivity">
 
     <TextView
+        android:id="@+id/text_choose_department"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Studiengang auswählen"
+        app:layout_constraintBottom_toBottomOf="@+id/my_drawer_layout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.10"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.10" />
+
+    <Spinner
+        android:id="@+id/departments_spinner"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:minHeight="48dp"
+        app:layout_constraintBottom_toBottomOf="@+id/text_choose_department"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/text_choose_department"
+        app:layout_constraintTop_toTopOf="@+id/text_choose_department" />
+
+    <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

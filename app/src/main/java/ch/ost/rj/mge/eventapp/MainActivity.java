@@ -13,6 +13,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.util.Log;
+import android.widget.Spinner;
 
 import com.google.android.material.navigation.NavigationView;
 
@@ -28,9 +29,14 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //set up fab to switch activity
         insertButton = findViewById(R.id.fab);
         insertButton.setOnClickListener(v -> showInsertActivity());
 
+        /*TODO
+        Spinner spin = (Spinner) findViewById(R.id.departments_spinner);
+        spin.setOnItemSelectedListener(this);
+        */
         // drawer layout instance to toggle the menu icon to open
         // drawer and back button to close drawer
         drawerLayout = findViewById(R.id.my_drawer_layout);
@@ -52,6 +58,7 @@ public class MainActivity extends AppCompatActivity
         getMenuInflater().inflate(R.menu.menu,menu);
         return true;
     }
+
     // override the onOptionsItemSelected()
     // function to implement
     // the item click listener callback
@@ -79,9 +86,6 @@ public class MainActivity extends AppCompatActivity
         logStateChange("Methode erreicht");
         return true;
     }
-
-
-
 
 
     private static void logStateChange(String callback) {
