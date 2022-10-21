@@ -81,14 +81,24 @@ public class MainActivity extends AppCompatActivity
         }
         return super.onOptionsItemSelected(item);
     }
+
     @Override
-    public boolean onNavigationItemSelected(MenuItem Item){
+    public boolean onNavigationItemSelected(MenuItem Item) {
         logStateChange("Methode erreicht");
-        return true;
+        switch (Item.getItemId()) {
+            case R.id.einstellungen:
+                Intent intent = new Intent(this, Settings.class);
+                this.startActivity(intent);
+                logStateChange("button Pressed");
+                return true;
+            case R.id.hinzugefuegte_events:
+                //Intent intent = new Intent(this,);
+        }
+        return false;
     }
 
 
-    private static void logStateChange(String callback) {
+    public static void logStateChange(String callback) {
         Log.d("MGE.U02.DEBUG", "Method: " + callback);
     }
 
