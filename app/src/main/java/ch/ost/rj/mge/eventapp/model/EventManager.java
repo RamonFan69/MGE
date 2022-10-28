@@ -8,7 +8,7 @@ public class EventManager {
     static {
         EventManager.events = new ArrayList<Event>();
 
-        for (int i=1; i<=10; i++)
+        for (int i=1; i<=20; i++)
         {
             EventManager.events.add(new Event("Event " + i, "department"));
         }
