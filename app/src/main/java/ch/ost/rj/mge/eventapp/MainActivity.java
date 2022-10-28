@@ -20,6 +20,9 @@ import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
+import ch.ost.rj.mge.eventapp.model.Event;
+import ch.ost.rj.mge.eventapp.model.EventManager;
+
 import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;

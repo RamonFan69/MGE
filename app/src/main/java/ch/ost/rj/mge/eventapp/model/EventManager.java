@@ -10,7 +10,11 @@ public class EventManager {
 
         for (int i=1; i<=10; i++)
         {
-            EventManager.events.add(new Event("Event " + i, i));
+            EventManager.events.add(new Event("Event " + i));
         }
+    }
+
+    public static ArrayList<Event> getEvents() {
+        return EventManager.events;
     }
 }
