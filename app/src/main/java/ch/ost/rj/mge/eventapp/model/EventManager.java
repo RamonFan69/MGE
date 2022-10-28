@@ -10,7 +10,7 @@ public class EventManager {
 
         for (int i=1; i<=10; i++)
         {
-            EventManager.events.add(new Event("Event " + i));
+            EventManager.events.add(new Event("Event " + i, "department"));
         }
     }
 
