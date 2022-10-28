@@ -6,13 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-
-
-
-
-
-
-
     <TextView
         android:id="@+id/text_choose_department"
         android:layout_width="wrap_content"
@@ -23,7 +16,7 @@
         app:layout_constraintHorizontal_bias="0.10"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.10" />
+        app:layout_constraintVertical_bias="0.05" />
 
     <Spinner
         android:id="@+id/departments_spinner"
@@ -34,9 +27,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/text_choose_department"
         app:layout_constraintTop_toTopOf="@+id/text_choose_department" />
-
-
-
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
@@ -53,36 +43,37 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.88" />
 
-
-
-
-
     <!-- the root view must be the DrawerLayout -->
 
     <androidx.drawerlayout.widget.DrawerLayout
         android:id="@+id/my_drawer_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        app:layout_constraintStart_toStartOf="parent"
         tools:context=".MainActivity"
-        tools:ignore="HardcodedText">
-
-
+        tools:ignore="HardcodedText"
+        tools:layout_editor_absoluteY="0dp">
 
         <!-- this the navigation view which draws and shows the navigation drawer -->
         <!-- include the menu created in the menu folder -->
         <com.google.android.material.navigation.NavigationView
+            android:id="@+id/navigationbar"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="start"
-            android:id="@+id/navigationbar"
             app:menu="@menu/navigation_menu" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/main_feed"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"></androidx.recyclerview.widget.RecyclerView>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/main_feed"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginTop="72dp"
+                app:layout_constraintEnd_toEndOf="@+id/my_drawer_layout"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/text_choose_department">
+
+            </androidx.recyclerview.widget.RecyclerView>
 
     </androidx.drawerlayout.widget.DrawerLayout>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

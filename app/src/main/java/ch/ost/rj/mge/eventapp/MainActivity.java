@@ -79,6 +79,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
         getMenuInflater().inflate(R.menu.menu,menu);
+
         return true;
     }
 
@@ -89,10 +90,18 @@ public class MainActivity extends AppCompatActivity
     // drawer when the icon is clicked
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        RecyclerView eventsHide = findViewById(R.id.main_feed);
 
         if (actionBarDrawerToggle.onOptionsItemSelected(item)) {
+            if (eventsHide.getVisibility() == View.VISIBLE){
+                eventsHide.setVisibility(View.GONE);
+                return true;
+            }
+            else{
+                eventsHide.setVisibility(View.VISIBLE);
+                return true;
+            }
 
-            return true;
         }
 
         switch (item.getItemId()){
