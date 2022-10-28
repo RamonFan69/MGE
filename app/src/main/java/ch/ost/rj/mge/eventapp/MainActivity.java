@@ -4,18 +4,25 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.UserManager;
 import android.view.Menu;
 import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.util.Log;
+import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
 import com.google.android.material.navigation.NavigationView;
+
+import java.util.ArrayList;
 
 
 public class MainActivity extends AppCompatActivity
@@ -32,6 +39,18 @@ public class MainActivity extends AppCompatActivity
         //set up fab to switch activity
         insertButton = findViewById(R.id.fab);
         insertButton.setOnClickListener(v -> showInsertActivity());
+
+        //experiment with RecyclerView
+        RecyclerView recyclerView = findViewById(R.id.main_feed);
+
+        RecyclerView.LayoutManager layoutManager;
+        layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
+
+        ArrayList<Event> data = EventManager.getEvents();
+        EventAdapter adapter = new EventManager.getAdapter(data);
+        recyclerView.setAdapter(adapter);
+
 
         /*TODO
         Spinner spin = (Spinner) findViewById(R.id.departments_spinner);
