@@ -22,6 +22,7 @@ import android.widget.Spinner;
 
 import ch.ost.rj.mge.eventapp.model.Event;
 import ch.ost.rj.mge.eventapp.model.EventManager;
+import ch.ost.rj.mge.eventapp.adapter.EventAdapter;
 
 import com.google.android.material.navigation.NavigationView;
 
@@ -51,7 +52,7 @@ public class MainActivity extends AppCompatActivity
         recyclerView.setLayoutManager(layoutManager);
 
         ArrayList<Event> data = EventManager.getEvents();
-        EventAdapter adapter = new EventManager.getAdapter(data);
+        EventAdapter adapter = new EventAdapter(data);
         recyclerView.setAdapter(adapter);
 
 
