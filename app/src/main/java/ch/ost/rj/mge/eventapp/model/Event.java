@@ -9,8 +9,9 @@ public class Event {
     // TODO
     // image
 
-    public Event(String title)
+    public Event(String title, String department)
     {
         this.title = title;
+        this.department = department;
     }
 }

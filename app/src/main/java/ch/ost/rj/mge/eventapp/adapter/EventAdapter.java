@@ -7,47 +7,57 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
 import java.util.ArrayList;
 
 import ch.ost.rj.mge.eventapp.model.Event;
 
-public class EventAdapter extends ArrayAdapter<Event> {
+public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> {
 
-    public EventAdapter(Context context, ArrayList<Event> events) {
-        super(context, 0, events);
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        public TextView text1;
+        public TextView text2;
+
+        public ViewHolder(View parent, TextView t1, TextView t2) {
+            super(parent);
+            text1 = t1;
+            text2 = t2;
+        }
+    }
+
+    private ArrayList<Event> events;
+
+    public EventAdapter(ArrayList<Event> events) {
+        this.events = events;
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolder viewHolder;
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        Context context = parent.getContext();
+        LayoutInflater inflater = LayoutInflater.from(context);
 
-        if (convertView == null) {
-            Context context = getContext();
-            LayoutInflater inflater = LayoutInflater.from(context);
+        View view = inflater.inflate(
+                android.R.layout.simple_list_item_2,
+                parent,
+                false);
 
-            convertView = inflater.inflate(
-                    android.R.layout.simple_list_item_2,
-                    parent,
-                    false);
+        TextView text1 = view.findViewById(android.R.id.text1);
+        TextView text2 = view.findViewById(android.R.id.text2);
 
-            viewHolder = new ViewHolder();
-            viewHolder.text1 = convertView.findViewById(android.R.id.text1);
-            // viewHolder.text2 = convertView.findViewById(android.R.id.text2);
-
-            convertView.setTag(viewHolder);
-        } else {
-            viewHolder = (ViewHolder)convertView.getTag();
-        }
-
-        Event event = getItem(position);
-        viewHolder.text1.setText(event.title);
-        // viewHolder.text2.setText(event.creator);
-
-        return convertView;
+        return new ViewHolder(view, text1, text2);
     }
 
-    private class ViewHolder {
-        TextView text1;
-        // TextView text2;
+    @Override
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        Event event = this.events.get(position);
+        holder.text1.setText(event.title);
+        holder.text2.setText(event.department);
+    }
+
+    @Override
+    public int getItemCount() {
+        return this.events.size();
     }
 }
