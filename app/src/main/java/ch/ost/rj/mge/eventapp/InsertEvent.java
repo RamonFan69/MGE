@@ -3,13 +3,19 @@ package ch.ost.rj.mge.eventapp;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
@@ -40,6 +46,17 @@ implements AdapterView.OnItemSelectedListener {
         EditText text_location = findViewById(R.id.text_input_where);
 
         EditText text_creator = findViewById(R.id.text_input_creator);
+
+        TextView text_description = findViewById(R.id.text_input_description);
+
+        Button button_gallery = findViewById(R.id.button_gallery);
+        button_gallery.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(intent, 3);
+            }
+        });
 
         text_date = findViewById(R.id.text_input_date_picker);
         DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
@@ -73,5 +90,16 @@ implements AdapterView.OnItemSelectedListener {
     private void updateLabel() {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yy", Locale.GERMAN);
         text_date.setText(dateFormat.format(myCalendar.getTime()));
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK && data != null)
+        {
+            Uri selectedImage = data.getData();
+            ImageView imageView = findViewById(R.id.image_preview);
+            imageView.setImageURI(selectedImage);
+        }
     }
 }

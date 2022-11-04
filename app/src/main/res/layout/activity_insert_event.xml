@@ -163,7 +163,7 @@
         android:id="@+id/button_gallery"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Gallery"
+        android:text="Gallerie"
         app:layout_constraintBottom_toBottomOf="@+id/textView_upload_image"
         app:layout_constraintEnd_toStartOf="@+id/button_camera"
         app:layout_constraintStart_toEndOf="@+id/textView_upload_image"
@@ -178,5 +178,14 @@
         app:layout_constraintBottom_toBottomOf="@+id/textView_upload_image"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/textView_upload_image" />
+
+    <ImageView
+        android:id="@+id/image_preview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_gallery" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
