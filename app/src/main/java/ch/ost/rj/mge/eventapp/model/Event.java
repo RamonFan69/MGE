@@ -9,9 +9,12 @@ public class Event {
     // TODO
     // image
 
-    public Event(String title, String department)
+    public Event(String title, String date, String location, String department,String creator)
     {
         this.title = title;
+        this.date = date;
+        this.location = location;
         this.department = department;
+        this.creator = creator;
     }
 }
