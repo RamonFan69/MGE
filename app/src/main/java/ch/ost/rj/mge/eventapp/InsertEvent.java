@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -21,6 +22,8 @@ import android.widget.Toast;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
+
+import ch.ost.rj.mge.eventapp.model.EventManager;
 
 public class InsertEvent extends AppCompatActivity
 implements AdapterView.OnItemSelectedListener {
@@ -73,6 +76,20 @@ implements AdapterView.OnItemSelectedListener {
             public void onClick(View view) {
                 new DatePickerDialog(InsertEvent.this, date, myCalendar.get(Calendar.YEAR),
                         myCalendar.get(Calendar.MONTH), myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+            }
+        });
+
+        Button button_ok = findViewById(R.id.button_ok);
+        button_ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                EventManager.addEvent(text_title.getText().toString(), text_date.getText().toString(),
+                        text_location.getText().toString(), spin.getSelectedItem().toString(),
+                        text_creator.getText().toString());
+
+                Intent intent = new Intent(InsertEvent.this, MainActivity.class);
+                Log.d("Insert Event", "new Event");
+                InsertEvent.this.startActivity(intent);
             }
         });
     }
