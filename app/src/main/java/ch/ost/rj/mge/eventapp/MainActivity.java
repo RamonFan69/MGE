@@ -44,12 +44,13 @@ public class MainActivity extends AppCompatActivity
         insertButton = findViewById(R.id.fab);
         insertButton.setOnClickListener(v -> showInsertActivity());
 
-        //experiment with RecyclerView
+        // Objekte / Events in Main Feed
         RecyclerView recyclerView = findViewById(R.id.main_feed);
 
         RecyclerView.LayoutManager layoutManager;
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
+
 
         ArrayList<Event> data = EventManager.getEvents();
         EventAdapter adapter = new EventAdapter(data);
@@ -60,6 +61,7 @@ public class MainActivity extends AppCompatActivity
         Spinner spin = (Spinner) findViewById(R.id.departments_spinner);
         spin.setOnItemSelectedListener(this);
         */
+        // -------------------- Navigation Bar ----------------------------------
         // drawer layout instance to toggle the menu icon to open
         // drawer and back button to close drawer
         drawerLayout = findViewById(R.id.my_drawer_layout);
@@ -76,12 +78,13 @@ public class MainActivity extends AppCompatActivity
         NavigationView bar = findViewById(R.id.navigationbar);
         bar.setNavigationItemSelectedListener(this);
     }
-    @Override
+
+    //------------------- Event Adder ----------------------------------------------
+    /*@Override
     public boolean onCreateOptionsMenu(Menu menu){
         getMenuInflater().inflate(R.menu.menu,menu);
-
         return true;
-    }
+    } */
 
     // override the onOptionsItemSelected()
     // function to implement
@@ -104,16 +107,10 @@ public class MainActivity extends AppCompatActivity
 
         }
 
-        switch (item.getItemId()){
-            case R.id.einstellungen:
-                Intent intent = new Intent(this, Settings.class);
-                this.startActivity(intent);
-                logStateChange("button Pressed");
-                return true;
-        }
+
         return super.onOptionsItemSelected(item);
     }
-
+//------------------------------ Auswahl in der Navigationbar -----------------------
     @Override
     public boolean onNavigationItemSelected(MenuItem Item) {
         logStateChange("Methode erreicht");
