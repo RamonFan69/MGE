@@ -1,6 +1,8 @@
 package ch.ost.rj.mge.eventapp;
 
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
@@ -8,6 +10,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -18,6 +21,8 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.material.navigation.NavigationView;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -31,6 +36,8 @@ implements AdapterView.OnItemSelectedListener {
     String[] departments = { "Alle", "Informatik", "Elektrotechnik", "WING", "EEU"};
     Calendar myCalendar  = Calendar.getInstance();
     EditText text_date;
+    public DrawerLayout drawerLayout_settings;
+    public ActionBarDrawerToggle actionBarDrawerToggle_settings;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,6 +99,20 @@ implements AdapterView.OnItemSelectedListener {
                 InsertEvent.this.startActivity(intent);
             }
         });
+
+        // pass the Open and Close toggle for the drawer layout listener
+        // to toggle the button
+        drawerLayout_settings.addDrawerListener(actionBarDrawerToggle_settings);
+        actionBarDrawerToggle_settings.syncState();
+
+        // to make the Navigation drawer icon always appear on the action bar
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        NavigationView bar = findViewById(R.id.navigation_bar_settings);
+        bar.setNavigationItemSelectedListener(this::onOptionsItemSelected);
+
+        //--------------------------OSTEvents Button------------------------------------------------
+        MenuItem OstEvents = findViewById(R.id.OSTEvents);
     }
 
     @Override

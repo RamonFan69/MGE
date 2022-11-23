@@ -11,54 +11,82 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+
+import com.google.android.material.navigation.NavigationView;
 
 public class Settings extends AppCompatActivity {
 
     public DrawerLayout drawerLayout_settings;
-    public ActionBarDrawerToggle actionBarDrawerToggle;
+    public ActionBarDrawerToggle actionBarDrawerToggle_settings;
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
-        // drawer layout instance to toggle the menu icon to open
-        // drawer and back button to close drawer
-        drawerLayout_settings = findViewById(R.id.my_drawer_layout);
-        actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout_settings, R.string.nav_open, R.string.nav_close);
+        DrawerLayout drawerLayout_settings = findViewById(R.id.my_drawer_layout_settings);
+        actionBarDrawerToggle_settings = new ActionBarDrawerToggle(this, drawerLayout_settings, R.string.nav_open, R.string.nav_close);
 
         // pass the Open and Close toggle for the drawer layout listener
         // to toggle the button
-        drawerLayout_settings.addDrawerListener(actionBarDrawerToggle);
-        actionBarDrawerToggle.syncState();
+        drawerLayout_settings.addDrawerListener(actionBarDrawerToggle_settings);
+        actionBarDrawerToggle_settings.syncState();
 
         // to make the Navigation drawer icon always appear on the action bar
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        NavigationView bar = findViewById(R.id.navigation_bar_settings);
+        bar.setNavigationItemSelectedListener(this::onOptionsItemSelected);
+
+        //--------------------------OSTEvents Button------------------------------------------------
+        MenuItem OstEvents = findViewById(R.id.OSTEvents);
+
+
+
     }
 
     @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.menu,menu);
+        return true;
+    }
 
-        return super.onOptionsItemSelected(item);
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.OSTEvents:
+                Intent Mainactivity = new Intent(Settings.this,MainActivity.class);
+                startActivity(Mainactivity);
+            default:
+                if (actionBarDrawerToggle_settings.onOptionsItemSelected(item)) {
+                    onNavigationItemSelected(item);
+                    return true;
+                }
+                return super.onOptionsItemSelected(item);
+        }
+
+
+
+
+
+
+
     }
 
 
     public boolean onNavigationItemSelected(MenuItem Item) {
+
         logStateChange("Methode erreicht");
-        switch (Item.getItemId()) {
-            case R.id.einstellungen:
-                Intent intent = new Intent(this, Settings.class);
-                this.startActivity(intent);
-                logStateChange("button Pressed");
-                return true;
-            case R.id.hinzugefuegte_events:
-                //Intent intent = new Intent(this,);
-        }
+
         return false;
     }
 
