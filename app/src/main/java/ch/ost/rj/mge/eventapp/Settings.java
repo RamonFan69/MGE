@@ -8,6 +8,7 @@ import static ch.ost.rj.mge.eventapp.MainActivity.logStateChange;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -18,6 +19,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.CompoundButton;
+import android.widget.Switch;
 
 import com.google.android.material.navigation.NavigationView;
 
@@ -25,6 +28,7 @@ public class Settings extends AppCompatActivity {
 
     public DrawerLayout drawerLayout_settings;
     public ActionBarDrawerToggle actionBarDrawerToggle_settings;
+    Switch Darkmode;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -48,7 +52,19 @@ public class Settings extends AppCompatActivity {
 
         //--------------------------OSTEvents Button------------------------------------------------
         MenuItem OstEvents = findViewById(R.id.OSTEvents);
-
+        //------------------------- Switch for Darkmode --------------------------------------------
+        Darkmode = findViewById(R.id.Darkmode);
+        Darkmode.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (b){
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                }
+                else{
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                }
+            }
+        });
 
 
     }
@@ -73,12 +89,6 @@ public class Settings extends AppCompatActivity {
                 }
                 return super.onOptionsItemSelected(item);
         }
-
-
-
-
-
-
 
     }
 

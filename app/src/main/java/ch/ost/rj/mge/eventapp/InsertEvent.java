@@ -1,15 +1,21 @@
 package ch.ost.rj.mge.eventapp;
 
+import static ch.ost.rj.mge.eventapp.MainActivity.logStateChange;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -33,12 +39,15 @@ import ch.ost.rj.mge.eventapp.model.EventManager;
 public class InsertEvent extends AppCompatActivity
 implements AdapterView.OnItemSelectedListener {
 
-    String[] departments = { "Alle", "Informatik", "Elektrotechnik", "WING", "EEU"};
-    Calendar myCalendar  = Calendar.getInstance();
+    String[] departments = {"Alle", "Informatik", "Elektrotechnik", "WING", "EEU"};
+    Calendar myCalendar = Calendar.getInstance();
     EditText text_date;
     public DrawerLayout drawerLayout_settings;
     public ActionBarDrawerToggle actionBarDrawerToggle_settings;
+    public DrawerLayout drawerLayout;
+    public ActionBarDrawerToggle actionBarDrawerToggle;
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,7 +58,7 @@ implements AdapterView.OnItemSelectedListener {
         Spinner spin = (Spinner) findViewById(R.id.departments_spinner);
         spin.setOnItemSelectedListener(this);
 
-        ArrayAdapter aa = new ArrayAdapter(this,android.R.layout.simple_spinner_item,departments);
+        ArrayAdapter aa = new ArrayAdapter(this, android.R.layout.simple_spinner_item, departments);
         aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spin.setAdapter(aa);
 
@@ -98,21 +107,29 @@ implements AdapterView.OnItemSelectedListener {
                 Log.d("Insert Event", "new Event");
                 InsertEvent.this.startActivity(intent);
             }
-        });
+        }
+
+
+        );
+        // -------------------- Navigation Bar ----------------------------------
+        // drawer layout instance to toggle the menu icon to open
+        // drawer and back button to close drawer
+        drawerLayout = findViewById(R.id.my_drawer_layout);
+        actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.nav_open, R.string.nav_close);
 
         // pass the Open and Close toggle for the drawer layout listener
         // to toggle the button
-        drawerLayout_settings.addDrawerListener(actionBarDrawerToggle_settings);
-        actionBarDrawerToggle_settings.syncState();
+        drawerLayout.addDrawerListener(actionBarDrawerToggle);
+        actionBarDrawerToggle.syncState();
 
         // to make the Navigation drawer icon always appear on the action bar
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        NavigationView bar = findViewById(R.id.navigation_bar_settings);
+        NavigationView bar = findViewById(R.id.navigationbar);
         bar.setNavigationItemSelectedListener(this::onOptionsItemSelected);
 
         //--------------------------OSTEvents Button------------------------------------------------
-        MenuItem OstEvents = findViewById(R.id.OSTEvents);
+        MenuItem OSTEvents = findViewById(R.id.OSTEvents);
     }
 
     @Override
@@ -133,11 +150,41 @@ implements AdapterView.OnItemSelectedListener {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK && data != null)
-        {
+        if (resultCode == RESULT_OK && data != null) {
             Uri selectedImage = data.getData();
             ImageView imageView = findViewById(R.id.image_preview);
             imageView.setImageURI(selectedImage);
         }
+    }
+    
+    @SuppressLint("NonConstantResourceId")
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.OSTEvents:
+                Intent Mainactivity = new Intent(InsertEvent.this, MainActivity.class);
+                startActivity(Mainactivity);
+            case R.id.einstellungen:
+                Intent goToSettings = new Intent(this, Settings.class);
+                this.startActivity(goToSettings);
+                logStateChange("button Pressed");
+                return true;
+
+            default:
+                if (actionBarDrawerToggle.onOptionsItemSelected(item)) {
+
+                    return true;
+                }
+                else{
+                    return super.onOptionsItemSelected(item);
+                }
+
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.menu,menu);
+        return true;
     }
 }

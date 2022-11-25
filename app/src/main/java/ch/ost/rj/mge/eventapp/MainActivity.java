@@ -116,8 +116,8 @@ public class MainActivity extends AppCompatActivity
         logStateChange("Methode erreicht");
         switch (Item.getItemId()) {
             case R.id.einstellungen:
-                Intent intent = new Intent(this, Settings.class);
-                this.startActivity(intent);
+                Intent goToSettings = new Intent(this, Settings.class);
+                this.startActivity(goToSettings);
                 logStateChange("button Pressed");
                 return true;
             case R.id.hinzugefuegte_events:
@@ -132,6 +132,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void showInsertActivity() {
+        logStateChange("Funktion zum InsertEvent wird aufgerufen");
         Intent intent = new Intent(this, InsertEvent.class);
         Log.d("showInsertActivity", "fab clicked");
         this.startActivity(intent);

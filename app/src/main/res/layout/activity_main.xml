@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:background="@color/background_color">
+
 
     <TextView
         android:id="@+id/text_choose_department"
@@ -16,7 +18,8 @@
         app:layout_constraintHorizontal_bias="0.10"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.05" />
+        app:layout_constraintVertical_bias="0.05"
+        android:textColor="@color/textview_color"/>
 
     <Spinner
         android:id="@+id/departments_spinner"
@@ -70,7 +73,9 @@
                 android:layout_marginTop="72dp"
                 app:layout_constraintEnd_toEndOf="@+id/my_drawer_layout"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/text_choose_department">
+                app:layout_constraintTop_toBottomOf="@+id/text_choose_department"
+                android:textColor="@color/textview_color">
+
 
             </androidx.recyclerview.widget.RecyclerView>
 
