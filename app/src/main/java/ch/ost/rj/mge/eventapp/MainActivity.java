@@ -27,6 +27,7 @@ import ch.ost.rj.mge.eventapp.adapter.EventAdapter;
 import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity
@@ -45,22 +46,28 @@ public class MainActivity extends AppCompatActivity
         insertButton.setOnClickListener(v -> showInsertActivity());
 
         // Objekte / Events in Main Feed
+        List<Event> events = new ArrayList<>();
+        events = EventManager.getEvents();
+        ClickListiner listiner = new ClickListiner() {
+            @Override
+            public void click(int index) {
+                Intent intent = new Intent(MainActivity.this, EventViewer.class);
+                Bundle b = new Bundle();
+                b.putInt("Index", index);
+                intent.putExtras(b);
+                MainActivity.this.startActivity(intent);
+            }
+        };
         RecyclerView recyclerView = findViewById(R.id.main_feed);
-
-        RecyclerView.LayoutManager layoutManager;
-        layoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(layoutManager);
-
-
-        ArrayList<Event> data = EventManager.getEvents();
-        EventAdapter adapter = new EventAdapter(data);
+        EventAdapter adapter = new EventAdapter(events, getApplication(), listiner);
         recyclerView.setAdapter(adapter);
-
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         /*TODO
         Spinner spin = (Spinner) findViewById(R.id.departments_spinner);
         spin.setOnItemSelectedListener(this);
         */
+
         // -------------------- Navigation Bar ----------------------------------
         // drawer layout instance to toggle the menu icon to open
         // drawer and back button to close drawer
@@ -96,17 +103,14 @@ public class MainActivity extends AppCompatActivity
         RecyclerView eventsHide = findViewById(R.id.main_feed);
 
         if (actionBarDrawerToggle.onOptionsItemSelected(item)) {
-            if (eventsHide.getVisibility() == View.VISIBLE){
+            if (eventsHide.getVisibility() == View.VISIBLE) {
                 eventsHide.setVisibility(View.GONE);
-                return true;
             }
-            else{
+            else {
                 eventsHide.setVisibility(View.VISIBLE);
-                return true;
             }
-
+            return true;
         }
-
 
         return super.onOptionsItemSelected(item);
     }
@@ -125,7 +129,6 @@ public class MainActivity extends AppCompatActivity
         }
         return false;
     }
-
 
     public static void logStateChange(String callback) {
         Log.d("MGE.U02.DEBUG", "Method: " + callback);
