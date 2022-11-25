@@ -11,53 +11,60 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
+import ch.ost.rj.mge.eventapp.ClickListiner;
+import ch.ost.rj.mge.eventapp.EventViewHolder;
+import ch.ost.rj.mge.eventapp.R;
 import ch.ost.rj.mge.eventapp.model.Event;
 
-public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> {
+public class EventAdapter extends RecyclerView.Adapter<EventViewHolder> {
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView text1;
-        public TextView text2;
+    List<Event> list = Collections.emptyList();
+    Context context;
+    ClickListiner listener;
 
-        public ViewHolder(View parent, TextView t1, TextView t2) {
-            super(parent);
-            text1 = t1;
-            text2 = t2;
-        }
-    }
-
-    private ArrayList<Event> events;
-
-    public EventAdapter(ArrayList<Event> events) {
-        this.events = events;
+    public EventAdapter(List<Event> list, Context context, ClickListiner listener) {
+        this.list = list;
+        this.context = context;
+        this.listener = listener;
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public EventViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
 
-        View view = inflater.inflate(
-                android.R.layout.simple_list_item_2,
-                parent,
-                false);
+        View view = inflater.inflate(R.layout.event_item, parent, false);
 
-        TextView text1 = view.findViewById(android.R.id.text1);
-        TextView text2 = view.findViewById(android.R.id.text2);
-
-        return new ViewHolder(view, text1, text2);
+        EventViewHolder viewHolder = new EventViewHolder(view);
+        return viewHolder;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Event event = this.events.get(position);
-        holder.text1.setText(event.title);
-        holder.text2.setText(event.department);
+    public void onBindViewHolder(EventViewHolder viewHolder, int position) {
+        int index = viewHolder.getAdapterPosition();
+        viewHolder.title.setText(list.get(position).title);
+        viewHolder.date.setText(list.get(position).date);
+        viewHolder.location.setText(list.get(position).location);
+        viewHolder.department.setText(list.get(position).department);
+        viewHolder.creator.setText(list.get(position).creator);
+        viewHolder.view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                listener.click(index);
+            }
+        });
     }
 
     @Override
     public int getItemCount() {
-        return this.events.size();
+        return list.size();
+    }
+
+    @Override
+    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
+        super.onAttachedToRecyclerView(recyclerView);
     }
 }
