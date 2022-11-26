@@ -155,7 +155,7 @@ implements AdapterView.OnItemSelectedListener {
             imageView.setImageURI(selectedImage);
         }
     }
-    
+
     @SuppressLint("NonConstantResourceId")
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {

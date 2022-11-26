@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -54,14 +55,24 @@ public class Settings extends AppCompatActivity {
         MenuItem OstEvents = findViewById(R.id.OSTEvents);
         //------------------------- Switch for Darkmode --------------------------------------------
         Darkmode = findViewById(R.id.Darkmode);
+        SharedPreferences sharedPreferences=getSharedPreferences("save",MODE_PRIVATE);
+        Darkmode.setChecked(sharedPreferences.getBoolean("value",false));
         Darkmode.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if (b){
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                    SharedPreferences.Editor editor=getSharedPreferences("save",MODE_PRIVATE).edit();
+                    editor.putBoolean("value",true);
+                    editor.apply();
+                    Darkmode.setChecked(true);
                 }
                 else{
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                    SharedPreferences.Editor editor=getSharedPreferences("save",MODE_PRIVATE).edit();
+                    editor.putBoolean("value",false);
+                    editor.apply();
+                    Darkmode.setChecked(false);
                 }
             }
         });
