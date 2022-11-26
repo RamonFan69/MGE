@@ -6,6 +6,27 @@
     android:layout_height="match_parent"
     tools:context=".InsertEvent">
 
+    <!-- the root view must be the DrawerLayout -->
+    <androidx.drawerlayout.widget.DrawerLayout
+        android:id="@+id/my_drawer_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:context=".MainActivity"
+        tools:ignore="HardcodedText"
+        tools:layout_editor_absoluteY="0dp">
+
+        <!-- this the navigation view which draws and shows the navigation drawer -->
+        <!-- include the menu created in the menu folder -->
+        <com.google.android.material.navigation.NavigationView
+            android:id="@+id/navigationbar"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            app:menu="@menu/navigation_menu" />
+
+    </androidx.drawerlayout.widget.DrawerLayout>
+
     <TextView
         android:id="@+id/textView_title"
         android:layout_width="wrap_content"
@@ -199,40 +220,4 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button_gallery" />
 
-    <!-- the root view must be the DrawerLayout -->
-
-    <androidx.drawerlayout.widget.DrawerLayout
-        android:id="@+id/my_drawer_layout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:context=".MainActivity"
-        tools:ignore="HardcodedText"
-        tools:layout_editor_absoluteY="0dp">
-
-        <!-- this the navigation view which draws and shows the navigation drawer -->
-        <!-- include the menu created in the menu folder -->
-        <com.google.android.material.navigation.NavigationView
-            android:id="@+id/navigationbar"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="start"
-            app:menu="@menu/navigation_menu" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/main_feed"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginTop="72dp"
-            app:layout_constraintEnd_toEndOf="@+id/my_drawer_layout"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_choose_department"
-            android:textColor="@color/textview_color">
-
-
-        </androidx.recyclerview.widget.RecyclerView>
-
-
-
-    </androidx.drawerlayout.widget.DrawerLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
