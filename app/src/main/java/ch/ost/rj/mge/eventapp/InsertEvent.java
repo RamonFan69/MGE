@@ -42,8 +42,7 @@ implements AdapterView.OnItemSelectedListener {
     String[] departments = {"Alle", "Informatik", "Elektrotechnik", "WING", "EEU"};
     Calendar myCalendar = Calendar.getInstance();
     EditText text_date;
-    public DrawerLayout drawerLayout_settings;
-    public ActionBarDrawerToggle actionBarDrawerToggle_settings;
+    Uri selectedImage;
     public DrawerLayout drawerLayout;
     public ActionBarDrawerToggle actionBarDrawerToggle;
 
@@ -101,7 +100,7 @@ implements AdapterView.OnItemSelectedListener {
             public void onClick(View view) {
                 EventManager.addEvent(text_title.getText().toString(), text_date.getText().toString(),
                         text_location.getText().toString(), spin.getSelectedItem().toString(),
-                        text_creator.getText().toString());
+                        text_creator.getText().toString(), text_description.getText().toString(), selectedImage);
 
                 Intent intent = new Intent(InsertEvent.this, MainActivity.class);
                 Log.d("Insert Event", "new Event");
@@ -151,7 +150,7 @@ implements AdapterView.OnItemSelectedListener {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK && data != null) {
-            Uri selectedImage = data.getData();
+            selectedImage = data.getData();
             ImageView imageView = findViewById(R.id.image_preview);
             imageView.setImageURI(selectedImage);
         }

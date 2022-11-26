@@ -50,6 +50,9 @@ public class EventAdapter extends RecyclerView.Adapter<EventViewHolder> {
         viewHolder.location.setText(list.get(position).location);
         viewHolder.department.setText(list.get(position).department);
         viewHolder.creator.setText(list.get(position).creator);
+        if(list.get(position).image != null) {
+            viewHolder.image.setImageURI(list.get(position).image);
+        }
         viewHolder.view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
