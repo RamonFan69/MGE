@@ -5,13 +5,17 @@ import static ch.ost.rj.mge.eventapp.MainActivity.logStateChange;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
@@ -37,7 +41,8 @@ import java.util.Locale;
 import ch.ost.rj.mge.eventapp.model.EventManager;
 
 public class InsertEvent extends AppCompatActivity
-implements AdapterView.OnItemSelectedListener {
+implements AdapterView.OnItemSelectedListener
+{
 
     String[] departments = {"Alle", "Informatik", "Elektrotechnik", "WING", "EEU"};
     Calendar myCalendar = Calendar.getInstance();
@@ -71,8 +76,19 @@ implements AdapterView.OnItemSelectedListener {
         button_gallery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(intent, 3);
+                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+                    if(getApplicationContext().checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED){
+                        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                        startActivityForResult(intent, 3);
+                    }
+                else{
+                    requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},1);
+                    }
+                }
+                else{
+
+                }
+
             }
         });
 
@@ -161,8 +177,9 @@ implements AdapterView.OnItemSelectedListener {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.OSTEvents:
-                Intent Mainactivity = new Intent(InsertEvent.this, MainActivity.class);
-                startActivity(Mainactivity);
+                Intent Main = new Intent(InsertEvent.this, MainActivity.class);
+                startActivity(Main);
+                return true;
             case R.id.einstellungen:
                 Intent goToSettings = new Intent(this, Settings.class);
                 this.startActivity(goToSettings);
@@ -186,4 +203,19 @@ implements AdapterView.OnItemSelectedListener {
         getMenuInflater().inflate(R.menu.menu,menu);
         return true;
     }
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] results) {
+        super.onRequestPermissionsResult(requestCode, permissions, results);
+
+        if (requestCode == 1){
+            if(results[0] == PackageManager.PERMISSION_GRANTED){
+                Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(intent, 3);
+            }
+            else{
+
+            }
+        }
+    }
+
 }
