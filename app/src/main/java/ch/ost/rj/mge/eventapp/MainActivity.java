@@ -20,6 +20,7 @@ import android.view.MenuItem;
 import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import ch.ost.rj.mge.eventapp.model.Event;
 import ch.ost.rj.mge.eventapp.model.EventManager;
@@ -37,6 +38,7 @@ public class MainActivity extends AppCompatActivity
     public DrawerLayout drawerLayout;
     public ActionBarDrawerToggle actionBarDrawerToggle;
     public Spinner spin;
+    public TextView choosedepartment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +69,7 @@ public class MainActivity extends AppCompatActivity
 
 
          spin = (Spinner) findViewById(R.id.departments_spinner);
+         choosedepartment = findViewById(R.id.text_choose_department);
         /*TODO
          spin.setOnItemSelectedListener(this);
         */
@@ -109,10 +112,13 @@ public class MainActivity extends AppCompatActivity
             if (eventsHide.getVisibility() == View.VISIBLE) {
                 eventsHide.setVisibility(View.GONE);
                 spin.setVisibility(View.GONE);
+                choosedepartment.setVisibility(View.GONE);
 
             }
             else {
                 eventsHide.setVisibility(View.VISIBLE);
+                choosedepartment.setVisibility(View.VISIBLE);
+                spin.setVisibility(View.VISIBLE);
             }
             return true;
         }
