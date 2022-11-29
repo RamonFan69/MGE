@@ -10,4 +10,5 @@
     <color name="white">#FFFFFFFF</color>
 
     <color name="background_color">#000000</color>
+    <color name="textview_color">#FFFFFF</color>
 </resources>

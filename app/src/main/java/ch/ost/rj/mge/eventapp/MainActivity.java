@@ -2,6 +2,7 @@ package ch.ost.rj.mge.eventapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.MediaRouteButton;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.UserManager;
@@ -35,6 +36,7 @@ public class MainActivity extends AppCompatActivity
     private View insertButton;
     public DrawerLayout drawerLayout;
     public ActionBarDrawerToggle actionBarDrawerToggle;
+    public Spinner spin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,9 +65,10 @@ public class MainActivity extends AppCompatActivity
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+
+         spin = (Spinner) findViewById(R.id.departments_spinner);
         /*TODO
-        Spinner spin = (Spinner) findViewById(R.id.departments_spinner);
-        spin.setOnItemSelectedListener(this);
+         spin.setOnItemSelectedListener(this);
         */
 
         // -------------------- Navigation Bar ----------------------------------
@@ -105,6 +108,8 @@ public class MainActivity extends AppCompatActivity
         if (actionBarDrawerToggle.onOptionsItemSelected(item)) {
             if (eventsHide.getVisibility() == View.VISIBLE) {
                 eventsHide.setVisibility(View.GONE);
+                spin.setVisibility(View.GONE);
+
             }
             else {
                 eventsHide.setVisibility(View.VISIBLE);

@@ -50,6 +50,23 @@ implements AdapterView.OnItemSelectedListener
     Uri selectedImage;
     public DrawerLayout drawerLayout;
     public ActionBarDrawerToggle actionBarDrawerToggle;
+    public EditText text_title;
+    public Spinner spin;
+    public ArrayAdapter aa;
+    public EditText text_location;
+    public EditText text_creator;
+    public TextView text_description;
+    public Button button_gallery;
+    public Button button_ok;
+    public TextView title;
+    public TextView when_textview;
+    public TextView where_textview;
+    public TextView for_who;
+    public TextView creator;
+    public TextView description;
+    public TextView picture_uploading;
+    public Button button_camera;
+
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -57,22 +74,22 @@ implements AdapterView.OnItemSelectedListener
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_insert_event);
 
-        EditText text_title = findViewById(R.id.text_input_title);
+        text_title = findViewById(R.id.text_input_title);
 
-        Spinner spin = (Spinner) findViewById(R.id.departments_spinner);
+        spin = (Spinner) findViewById(R.id.departments_spinner);
         spin.setOnItemSelectedListener(this);
 
-        ArrayAdapter aa = new ArrayAdapter(this, android.R.layout.simple_spinner_item, departments);
+        aa = new ArrayAdapter(this, android.R.layout.simple_spinner_item, departments);
         aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spin.setAdapter(aa);
 
-        EditText text_location = findViewById(R.id.text_input_where);
+        text_location = findViewById(R.id.text_input_where);
 
-        EditText text_creator = findViewById(R.id.text_input_creator);
+        text_creator = findViewById(R.id.text_input_creator);
 
-        TextView text_description = findViewById(R.id.text_input_description);
+        text_description = findViewById(R.id.text_input_description);
 
-        Button button_gallery = findViewById(R.id.button_gallery);
+        button_gallery = findViewById(R.id.button_gallery);
         button_gallery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -85,9 +102,7 @@ implements AdapterView.OnItemSelectedListener
                     requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},1);
                     }
                 }
-                else{
 
-                }
 
             }
         });
@@ -110,7 +125,7 @@ implements AdapterView.OnItemSelectedListener
             }
         });
 
-        Button button_ok = findViewById(R.id.button_ok);
+        button_ok = findViewById(R.id.button_ok);
         button_ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -123,9 +138,18 @@ implements AdapterView.OnItemSelectedListener
                 InsertEvent.this.startActivity(intent);
             }
         }
-
-
         );
+
+        title = findViewById(R.id.textView_title);
+        when_textview = findViewById(R.id.textView_when);
+        where_textview = findViewById(R.id.textView_where);
+        for_who = findViewById(R.id.textView_for_who);
+        creator = findViewById(R.id.textView_creator);
+        description = findViewById(R.id.textView_description);
+        picture_uploading = findViewById(R.id.textView_upload_image);
+        button_camera = findViewById(R.id.button_camera);
+
+
         // -------------------- Navigation Bar ----------------------------------
         // drawer layout instance to toggle the menu icon to open
         // drawer and back button to close drawer
@@ -144,7 +168,7 @@ implements AdapterView.OnItemSelectedListener
         bar.setNavigationItemSelectedListener(this::onOptionsItemSelected);
 
         //--------------------------OSTEvents Button------------------------------------------------
-        MenuItem OSTEvents = findViewById(R.id.OSTEvents);
+
     }
 
     @Override
@@ -175,28 +199,69 @@ implements AdapterView.OnItemSelectedListener
     @SuppressLint("NonConstantResourceId")
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.OSTEvents:
-                Intent Main = new Intent(InsertEvent.this, MainActivity.class);
-                startActivity(Main);
-                return true;
-            case R.id.einstellungen:
-                Intent goToSettings = new Intent(this, Settings.class);
-                this.startActivity(goToSettings);
-                logStateChange("button Pressed");
-                return true;
-
-            default:
-                if (actionBarDrawerToggle.onOptionsItemSelected(item)) {
-
+        if (actionBarDrawerToggle.onOptionsItemSelected(item)) {
+            if (button_ok.getVisibility() == View.VISIBLE) {
+                button_ok.setVisibility(View.GONE);
+                spin.setVisibility(View.GONE);
+                text_title.setVisibility(View.GONE);
+                spin.setVisibility(View.GONE);
+                text_location.setVisibility(View.GONE);
+                text_creator.setVisibility(View.GONE);
+                text_description.setVisibility(View.GONE);
+                button_gallery.setVisibility(View.GONE);
+                button_ok.setVisibility(View.GONE);
+                text_date.setVisibility(View.GONE);
+                title.setVisibility(View.GONE);
+                when_textview.setVisibility(View.GONE);
+                where_textview.setVisibility(View.GONE);
+                for_who.setVisibility(View.GONE);
+                creator.setVisibility(View.GONE);
+                description.setVisibility(View.GONE);
+                picture_uploading.setVisibility(View.GONE);
+                button_camera.setVisibility(View.GONE);
+            }
+            else{
+                button_ok.setVisibility(View.VISIBLE);
+                spin.setVisibility(View.VISIBLE);
+                text_title.setVisibility(View.VISIBLE);
+                spin.setVisibility(View.VISIBLE);
+                text_location.setVisibility(View.VISIBLE);
+                text_creator.setVisibility(View.VISIBLE);
+                text_description.setVisibility(View.VISIBLE);
+                button_gallery.setVisibility(View.VISIBLE);
+                button_ok.setVisibility(View.VISIBLE);
+                text_date.setVisibility(View.VISIBLE);
+                title.setVisibility(View.VISIBLE);
+                when_textview.setVisibility(View.VISIBLE);
+                where_textview.setVisibility(View.VISIBLE);
+                for_who.setVisibility(View.VISIBLE);
+                creator.setVisibility(View.VISIBLE);
+                description.setVisibility(View.VISIBLE);
+                picture_uploading.setVisibility(View.VISIBLE);
+                button_camera.setVisibility(View.VISIBLE);
+            }}
+            switch (item.getItemId()) {
+                case R.id.OSTEvents:
+                    Intent Main = new Intent(InsertEvent.this, MainActivity.class);
+                    startActivity(Main);
                     return true;
-                }
-                else{
-                    return super.onOptionsItemSelected(item);
-                }
+                case R.id.einstellungen:
+                    Intent goToSettings = new Intent(this, Settings.class);
+                    this.startActivity(goToSettings);
+                    logStateChange("button Pressed");
+                    return true;
 
+                default:
+                    if (actionBarDrawerToggle.onOptionsItemSelected(item)) {
+
+                        return true;
+                    } else {
+                        return super.onOptionsItemSelected(item);
+                    }
+
+            }
         }
-    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
@@ -204,7 +269,7 @@ implements AdapterView.OnItemSelectedListener
         return true;
     }
     @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] results) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] results) {
         super.onRequestPermissionsResult(requestCode, permissions, results);
 
         if (requestCode == 1){
@@ -212,10 +277,10 @@ implements AdapterView.OnItemSelectedListener
                 Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 startActivityForResult(intent, 3);
             }
-            else{
 
-            }
         }
     }
+
+
 
 }

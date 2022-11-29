@@ -21,6 +21,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.Switch;
 
 import com.google.android.material.navigation.NavigationView;
@@ -29,7 +30,8 @@ public class Settings extends AppCompatActivity {
 
     public DrawerLayout drawerLayout_settings;
     public ActionBarDrawerToggle actionBarDrawerToggle_settings;
-    Switch Darkmode;
+    public Switch Darkmode;
+    public EditText einstellungen;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -51,8 +53,7 @@ public class Settings extends AppCompatActivity {
         NavigationView bar = findViewById(R.id.navigation_bar_settings);
         bar.setNavigationItemSelectedListener(this::onOptionsItemSelected);
 
-        //--------------------------OSTEvents Button------------------------------------------------
-        MenuItem OstEvents = findViewById(R.id.OSTEvents);
+        einstellungen = findViewById(R.id.editTextTextPersonName);
         //------------------------- Switch for Darkmode --------------------------------------------
         Darkmode = findViewById(R.id.Darkmode);
         SharedPreferences sharedPreferences=getSharedPreferences("save",MODE_PRIVATE);
@@ -89,16 +90,28 @@ public class Settings extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (actionBarDrawerToggle_settings.onOptionsItemSelected(item)) {
+            if (Darkmode.getVisibility() == View.VISIBLE) {
+                Darkmode.setVisibility(View.GONE);
+                einstellungen.setVisibility(View.GONE);
+            } else {
+                Darkmode.setVisibility(View.VISIBLE);
+                einstellungen.setVisibility(View.VISIBLE);
+            }
+        }
+
         switch (item.getItemId()){
             case R.id.OSTEvents:
                 Intent Mainactivity = new Intent(Settings.this,MainActivity.class);
                 startActivity(Mainactivity);
+                return true;
             default:
                 if (actionBarDrawerToggle_settings.onOptionsItemSelected(item)) {
                     onNavigationItemSelected(item);
                     return true;
                 }
                 return super.onOptionsItemSelected(item);
+
         }
 
     }
