@@ -18,9 +18,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.util.Log;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import ch.ost.rj.mge.eventapp.model.Event;
 import ch.ost.rj.mge.eventapp.model.EventManager;
@@ -33,11 +35,12 @@ import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity
-    implements NavigationView.OnNavigationItemSelectedListener{
+    implements NavigationView.OnNavigationItemSelectedListener, AdapterView.OnItemSelectedListener {
     private View insertButton;
     public DrawerLayout drawerLayout;
     public ActionBarDrawerToggle actionBarDrawerToggle;
     public Spinner spin;
+    String[] departments = {"Alle", "Informatik", "Elektrotechnik", "WING", "EEU"};
     public TextView choosedepartment;
 
     @Override
@@ -67,12 +70,14 @@ public class MainActivity extends AppCompatActivity
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+        choosedepartment = findViewById(R.id.text_choose_department);
+        spin = (Spinner) findViewById(R.id.departments_spinner);
+        spin.setOnItemSelectedListener(this);
 
-         spin = (Spinner) findViewById(R.id.departments_spinner);
-         choosedepartment = findViewById(R.id.text_choose_department);
-        /*TODO
-         spin.setOnItemSelectedListener(this);
-        */
+        ArrayAdapter aa = new ArrayAdapter(this, android.R.layout.simple_spinner_item, departments);
+        aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spin.setAdapter(aa);
+
 
         // -------------------- Navigation Bar ----------------------------------
         // drawer layout instance to toggle the menu icon to open
@@ -90,6 +95,17 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView bar = findViewById(R.id.navigationbar);
         bar.setNavigationItemSelectedListener(this);
+    }
+
+    //Department Spinner
+    @Override
+    public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long id) {
+        Toast.makeText(getApplicationContext(), departments[position], Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
     }
 
     //------------------- Event Adder ----------------------------------------------
