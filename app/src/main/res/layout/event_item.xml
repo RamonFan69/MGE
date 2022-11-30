@@ -3,7 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="105dp">
+    android:layout_height="105dp"
+    android:fitsSystemWindows="true" >
 
     <TextView
         android:id="@+id/text_title"
@@ -33,9 +34,8 @@
         android:layout_height="wrap_content"
         android:text="Default Location"
         android:textSize="16sp"
-        android:layout_marginStart="30dp"
         app:layout_constraintBottom_toBottomOf="@+id/text_date"
-        app:layout_constraintStart_toEndOf="@+id/text_date" />
+        app:layout_constraintStart_toStartOf="@+id/text_creator" />
 
     <TextView
         android:id="@+id/text_department"
