@@ -13,15 +13,15 @@ public class EventManager {
         EventManager.events = new ArrayList<>();
 
         EventManager.events.add(new Event("Event 1", "08/12/22", "Geb. 3", "Alle", "H. Muster",
-                "Description 1", null));
+                "Description 1", null,null));
         EventManager.events.add(new Event("Event 2", "09/12/22", "ZAK", "Informatik", "A. Müller",
-                "Description 2", null));
+                "Description 2", null,null));
         EventManager.events.add(new Event("Event 3", "02/12/22", "Geb. 1", "Elektrotechnik", "J. Schmid",
-                "Description 3", null));
+                "Description 3", null,null));
         EventManager.events.add(new Event("Event 4", "23/12/22", "OST", "Alle", "B. Meier",
-                "Description 4", null));
+                "Description 4", null,null));
         EventManager.events.add(new Event("Event 5", "16/12/22", "Geb. 5", "Alle", "kreativ",
-                "Description 5", null));
+                "Description 5", null,null));
         /*
         for (int i=1; i<=20; i++)
         {

@@ -2,10 +2,11 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/Items"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
-    android:background="@color/background_color">
+    android:background="@color/background_color"
+    tools:context=".MainActivity">
 
 
     <!-- the root view must be the DrawerLayout -->
@@ -34,24 +35,25 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Studiengang auswählen"
+        android:textColor="@color/textview_color"
         app:layout_constraintBottom_toBottomOf="@+id/my_drawer_layout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.10"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.05"
-        android:textColor="@color/textview_color"/>
+        app:layout_constraintVertical_bias="0.05" />
 
     <Spinner
         android:id="@+id/departments_spinner"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
+        android:contentDescription="@string/app_name"
         android:minHeight="48dp"
+        android:textColor="@color/textview_color"
         app:layout_constraintBottom_toBottomOf="@+id/text_choose_department"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/text_choose_department"
-        app:layout_constraintTop_toTopOf="@+id/text_choose_department"
-        android:textColor="@color/textview_color"/>
+        app:layout_constraintTop_toTopOf="@+id/text_choose_department" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
@@ -71,15 +73,15 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:fitsSystemWindows="true"
+        android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_choose_department">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/main_feed"
-            android:layout_width="wrap_content"
+            android:layout_width="205dp"
             android:layout_height="match_parent"
             android:layout_marginTop="48dp"
             android:layout_marginBottom="24dp"

@@ -6,10 +6,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.material.navigation.NavigationView;
@@ -60,6 +62,16 @@ public class EventViewer extends AppCompatActivity {
 
         description = findViewById(R.id.text_description);
         description.setText(event.description);
+        ImageView photo = findViewById(R.id.image);
+        if (event.photo instanceof Bitmap){
+            photo.setImageBitmap(event.photo);
+        }
+        else{
+            photo.setImageURI(event.image);
+        }
+
+
+
 
         // -------------------- Navigation Bar ----------------------------------
         // drawer layout instance to toggle the menu icon to open
