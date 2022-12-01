@@ -26,4 +26,10 @@ public class Event {
         this.image = image;
         this.photo = photo;
     }
+
+    public String getDate()
+    {
+        String[] dates = this.date.split("/", 3);
+        return dates[2] + dates[1] + dates[0];
+    }
 }

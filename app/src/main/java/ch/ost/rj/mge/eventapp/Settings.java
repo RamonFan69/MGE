@@ -105,6 +105,10 @@ public class Settings extends AppCompatActivity {
                 Intent Mainactivity = new Intent(Settings.this,MainActivity.class);
                 startActivity(Mainactivity);
                 return true;
+            case R.id.hinzugefuegte_events:
+                Intent goToSavedEvents = new Intent(Settings.this, SavedEvents.class);
+                this.startActivity(goToSavedEvents);
+                return true;
             default:
                 if (actionBarDrawerToggle_settings.onOptionsItemSelected(item)) {
                     onNavigationItemSelected(item);

@@ -2,6 +2,7 @@ package ch.ost.rj.mge.eventapp.model;
 
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Build;
 
 import java.util.ArrayList;
 
@@ -33,6 +34,7 @@ public class EventManager {
 
         if(dep.equals("Alle"))
         {
+            EventManager.sort(events);
             return EventManager.events;
         }
         else
@@ -44,7 +46,15 @@ public class EventManager {
                     filtered_events.add(EventManager.events.get(i));
                 }
             }
+            EventManager.sort(filtered_events);
             return filtered_events;
+        }
+    }
+
+    public static void sort(ArrayList<Event> list)
+    {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            list.sort((e1, e2) -> e1.getDate().compareTo(e2.getDate()));
         }
     }
 

@@ -281,7 +281,10 @@ implements AdapterView.OnItemSelectedListener
                 this.startActivity(goToSettings);
                 logStateChange("button Pressed");
                 return true;
-
+            case R.id.hinzugefuegte_events:
+                Intent goToSavedEvents = new Intent(this, SavedEvents.class);
+                this.startActivity(goToSavedEvents);
+                return true;
             default:
                 if (actionBarDrawerToggle.onOptionsItemSelected(item)) {
                     return true;
