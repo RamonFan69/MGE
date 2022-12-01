@@ -40,7 +40,9 @@ public class MainActivity extends AppCompatActivity
     public DrawerLayout drawerLayout;
     public ActionBarDrawerToggle actionBarDrawerToggle;
     public Spinner spin;
+    EventAdapter adapter;
     String[] departments = {"Alle", "Informatik", "Elektrotechnik", "WING", "EEU"};
+    String dep_filter = "Alle";
     public TextView choosedepartment;
 
     @Override
@@ -54,19 +56,20 @@ public class MainActivity extends AppCompatActivity
 
         // Objekte / Events in Main Feed
         List<Event> events = new ArrayList<>();
-        events = EventManager.getEvents();
+        events = EventManager.getEvents(dep_filter);
         ClickListiner listiner = new ClickListiner() {
             @Override
             public void click(int index) {
                 Intent intent = new Intent(MainActivity.this, EventViewer.class);
                 Bundle b = new Bundle();
                 b.putInt("Index", index);
+                b.putString("Dep", dep_filter);
                 intent.putExtras(b);
                 MainActivity.this.startActivity(intent);
             }
         };
         RecyclerView recyclerView = findViewById(R.id.main_feed);
-        EventAdapter adapter = new EventAdapter(events, getApplication(), listiner);
+        adapter = new EventAdapter(events, getApplication(), listiner);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -78,6 +81,7 @@ public class MainActivity extends AppCompatActivity
         aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spin.setAdapter(aa);
 
+        String department = spin.getSelectedItem().toString();
 
         // -------------------- Navigation Bar ----------------------------------
         // drawer layout instance to toggle the menu icon to open
@@ -100,7 +104,10 @@ public class MainActivity extends AppCompatActivity
     //Department Spinner
     @Override
     public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long id) {
+        logStateChange("onItemSelected");
         Toast.makeText(getApplicationContext(), departments[position], Toast.LENGTH_LONG).show();
+        adapter.list = EventManager.getEvents(departments[position]);
+        adapter.notifyDataSetChanged();
     }
 
     @Override
