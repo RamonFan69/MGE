@@ -10,13 +10,12 @@
         android:id="@+id/text_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="96dp"
         android:text="Default Title"
         android:textSize="18sp"
         android:textStyle="bold"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="15dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/text_date"
@@ -24,9 +23,8 @@
         android:layout_height="wrap_content"
         android:text="Default Date"
         android:textSize="16sp"
-        android:layout_marginStart="20dp"
-        app:layout_constraintTop_toBottomOf="@+id/text_title"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="@+id/text_title"
+        app:layout_constraintTop_toBottomOf="@+id/text_title" />
 
     <TextView
         android:id="@+id/text_location"
@@ -44,19 +42,18 @@
         android:gravity="center"
         android:text="Default Department"
         android:textSize="16sp"
-        android:layout_marginStart="20dp"
-        app:layout_constraintTop_toBottomOf="@+id/text_date"
-        app:layout_constraintStart_toStartOf="parent"/>
+        app:layout_constraintStart_toStartOf="@+id/text_date"
+        app:layout_constraintTop_toBottomOf="@+id/text_date" />
 
     <TextView
         android:id="@+id/text_creator"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="64dp"
         android:text="Default Creator"
         android:textSize="16sp"
-        android:layout_marginStart="30dp"
         app:layout_constraintBottom_toBottomOf="@+id/text_department"
-        app:layout_constraintStart_toEndOf="@+id/text_department" />
+        app:layout_constraintStart_toEndOf="@+id/text_date" />
 
     <TextView
         android:id="@+id/border"

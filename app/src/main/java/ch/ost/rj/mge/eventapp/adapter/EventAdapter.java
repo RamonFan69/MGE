@@ -53,6 +53,9 @@ public class EventAdapter extends RecyclerView.Adapter<EventViewHolder> {
         if(list.get(position).image != null) {
             viewHolder.image.setImageURI(list.get(position).image);
         }
+        else if(list.get(position).photo != null) {
+            viewHolder.image.setImageBitmap(list.get(position).photo);
+        }
         viewHolder.view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
