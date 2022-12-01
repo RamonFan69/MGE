@@ -115,18 +115,9 @@ public class MainActivity extends AppCompatActivity
 
     }
 
-    //------------------- Event Adder ----------------------------------------------
-    /*@Override
-    public boolean onCreateOptionsMenu(Menu menu){
-        getMenuInflater().inflate(R.menu.menu,menu);
-        return true;
-    } */
 
-    // override the onOptionsItemSelected()
-    // function to implement
-    // the item click listener callback
-    // to open and close the navigation
-    // drawer when the icon is clicked
+    // override the onOptionsItemSelected() function to implement the item click listener callback
+    // to open and close the navigation drawer when the icon is clicked
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         RecyclerView eventsHide = findViewById(R.id.main_feed);
@@ -136,9 +127,7 @@ public class MainActivity extends AppCompatActivity
                 eventsHide.setVisibility(View.GONE);
                 spin.setVisibility(View.GONE);
                 choosedepartment.setVisibility(View.GONE);
-
-            }
-            else {
+            } else {
                 eventsHide.setVisibility(View.VISIBLE);
                 choosedepartment.setVisibility(View.VISIBLE);
                 spin.setVisibility(View.VISIBLE);
@@ -171,9 +160,8 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void showInsertActivity() {
-        logStateChange("Funktion zum InsertEvent wird aufgerufen");
         Intent intent = new Intent(this, InsertEvent.class);
-        Log.d("showInsertActivity", "fab clicked");
+        // Log.d("showInsertActivity", "fab clicked");
         this.startActivity(intent);
     }
 }

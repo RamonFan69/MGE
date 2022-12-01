@@ -93,9 +93,7 @@ implements AdapterView.OnItemSelectedListener
         spin.setAdapter(aa);
 
         text_location = findViewById(R.id.text_input_where);
-
         text_creator = findViewById(R.id.text_input_creator);
-
         text_description = findViewById(R.id.text_input_description);
 
         button_gallery = findViewById(R.id.button_gallery);
@@ -107,12 +105,10 @@ implements AdapterView.OnItemSelectedListener
                         Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                         startActivityForResult(intent, 3);
                     }
-                else{
+                    else{
                     requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},1);
                     }
                 }
-
-
             }
         });
 
@@ -146,10 +142,7 @@ implements AdapterView.OnItemSelectedListener
                 Log.d("Insert Event", "new Event");
                 InsertEvent.this.startActivity(intent);
             }
-        }
-        );
-
-
+        });
 
         title = findViewById(R.id.textView_title);
         when_textview = findViewById(R.id.textView_when);
@@ -186,7 +179,6 @@ implements AdapterView.OnItemSelectedListener
         bar.setNavigationItemSelectedListener(this::onOptionsItemSelected);
 
         //--------------------------OSTEvents Button------------------------------------------------
-
     }
 
     private void takePicture() {
@@ -200,14 +192,8 @@ implements AdapterView.OnItemSelectedListener
                 Intent camera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 startActivityForResult(camera,REQUEST_CODE);
             }
-
         }
-
-
     }
-
-
-
 
     @Override
     public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long id) {
@@ -283,28 +269,27 @@ implements AdapterView.OnItemSelectedListener
                 description.setVisibility(View.VISIBLE);
                 picture_uploading.setVisibility(View.VISIBLE);
                 button_camera.setVisibility(View.VISIBLE);
-            }}
-            switch (item.getItemId()) {
-                case R.id.OSTEvents:
-                    Intent Main = new Intent(InsertEvent.this, MainActivity.class);
-                    startActivity(Main);
-                    return true;
-                case R.id.einstellungen:
-                    Intent goToSettings = new Intent(this, Settings.class);
-                    this.startActivity(goToSettings);
-                    logStateChange("button Pressed");
-                    return true;
-
-                default:
-                    if (actionBarDrawerToggle.onOptionsItemSelected(item)) {
-
-                        return true;
-                    } else {
-                        return super.onOptionsItemSelected(item);
-                    }
-
             }
         }
+        switch (item.getItemId()) {
+            case R.id.OSTEvents:
+                Intent Main = new Intent(InsertEvent.this, MainActivity.class);
+                startActivity(Main);
+                return true;
+            case R.id.einstellungen:
+                Intent goToSettings = new Intent(this, Settings.class);
+                this.startActivity(goToSettings);
+                logStateChange("button Pressed");
+                return true;
+
+            default:
+                if (actionBarDrawerToggle.onOptionsItemSelected(item)) {
+                    return true;
+                } else {
+                    return super.onOptionsItemSelected(item);
+                }
+        }
+    }
 
 
     @Override
@@ -312,6 +297,7 @@ implements AdapterView.OnItemSelectedListener
         getMenuInflater().inflate(R.menu.menu,menu);
         return true;
     }
+
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] results) {
         super.onRequestPermissionsResult(requestCode, permissions, results);
@@ -321,7 +307,6 @@ implements AdapterView.OnItemSelectedListener
                 Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 startActivityForResult(intent, 3);
             }
-
         }
         else if (requestCode == 100){
 
