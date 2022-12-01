@@ -21,7 +21,7 @@ import ch.ost.rj.mge.eventapp.model.Event;
 
 public class EventAdapter extends RecyclerView.Adapter<EventViewHolder> {
 
-    List<Event> list = Collections.emptyList();
+    public List<Event> list = Collections.emptyList();
     Context context;
     ClickListiner listener;
 

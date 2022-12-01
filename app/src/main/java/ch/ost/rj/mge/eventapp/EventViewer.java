@@ -39,8 +39,9 @@ public class EventViewer extends AppCompatActivity {
 
         Bundle b = getIntent().getExtras();
         int index = b.getInt("Index");
+        String dep = b.getString("Dep");
 
-        event = EventManager.getEvent(index);
+        event = EventManager.getEvent(index, dep);
 
         title = findViewById(R.id.text_title);
         title.setText(event.title);
