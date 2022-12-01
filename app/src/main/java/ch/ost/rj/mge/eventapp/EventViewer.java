@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -31,7 +32,6 @@ public class EventViewer extends AppCompatActivity {
     public TextView department;
     public TextView creator;
     public TextView description;
-
 
 
     @Override
@@ -70,6 +70,15 @@ public class EventViewer extends AppCompatActivity {
             photo.setImageURI(event.image);
         }
 
+        Button button = findViewById(R.id.button);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(EventViewer.this, SavedEvents.class);
+                EventManager.saveEvent(event);
+                EventViewer.this.startActivity(intent);
+            }
+        });
 
 
 

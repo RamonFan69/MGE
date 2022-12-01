@@ -8,6 +8,7 @@ import java.util.ArrayList;
 public class EventManager {
     private static ArrayList<Event> events;
     private static ArrayList<Event> filtered_events;
+    private static ArrayList<Event> savedEvents = new ArrayList<>();
 
     static {
         EventManager.events = new ArrayList<>();
@@ -22,12 +23,8 @@ public class EventManager {
                 "Description 4", null,null));
         EventManager.events.add(new Event("Event 5", "16/12/22", "Geb. 5", "Alle", "kreativ",
                 "Description 5", null,null));
-        /*
-        for (int i=1; i<=20; i++)
-        {
-            EventManager.events.add(new Event("Event " + i, "01/01/00", "location", "department", "creator", "description", null,null));
-        }
-        */
+        EventManager.events.add(new Event("Event 6", "15/12/22", "OST", "EEU", "C. Schmied",
+                "Description 6", null, null));
     }
 
     public static ArrayList<Event> getEvents(String dep)
@@ -53,17 +50,28 @@ public class EventManager {
 
     public static Event getEvent(int index, String dep)
     {
-        if(dep.equals("Alle")) {
+        if(dep.equals("Alle"))
+        {
             return EventManager.events.get(index);
         }
         else
         {
-            return EventManager.filtered_events.get(index);
+            return EventManager.getEvents(dep).get(index);
         }
     }
 
     public static void addEvent(String title, String date, String location, String department, String creator, String description, Uri image, Bitmap photo)
     {
         EventManager.events.add(new Event(title, date, location, department, creator, description, image,photo));
+    }
+
+    public static void saveEvent(Event e)
+    {
+        EventManager.savedEvents.add(e);
+    }
+
+    public static ArrayList<Event> getSavedEvents()
+    {
+        return EventManager.savedEvents;
     }
 }

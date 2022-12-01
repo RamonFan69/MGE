@@ -110,17 +110,13 @@ public class Settings extends AppCompatActivity {
                     onNavigationItemSelected(item);
                     return true;
                 }
-                return super.onOptionsItemSelected(item);
-
+            return super.onOptionsItemSelected(item);
         }
-
     }
 
 
     public boolean onNavigationItemSelected(MenuItem Item) {
-
         logStateChange("Methode erreicht");
-
         return false;
     }
 

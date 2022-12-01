@@ -159,7 +159,9 @@ public class MainActivity extends AppCompatActivity
                 logStateChange("button Pressed");
                 return true;
             case R.id.hinzugefuegte_events:
-                //Intent intent = new Intent(this,);
+                Intent goToSavedEvents = new Intent(this, SavedEvents.class);
+                this.startActivity(goToSavedEvents);
+                return true;
         }
         return false;
     }
