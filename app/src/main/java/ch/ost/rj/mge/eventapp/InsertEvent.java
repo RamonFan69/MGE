@@ -3,9 +3,11 @@ package ch.ost.rj.mge.eventapp;
 import static ch.ost.rj.mge.eventapp.MainActivity.logStateChange;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -14,6 +16,8 @@ import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.media.Image;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -48,6 +52,7 @@ implements AdapterView.OnItemSelectedListener
     Calendar myCalendar = Calendar.getInstance();
     EditText text_date;
     Uri selectedImage;
+    Bitmap photo;
     public DrawerLayout drawerLayout;
     public ActionBarDrawerToggle actionBarDrawerToggle;
     public EditText text_title;
@@ -66,6 +71,10 @@ implements AdapterView.OnItemSelectedListener
     public TextView description;
     public TextView picture_uploading;
     public Button button_camera;
+    public ImageView image_camera;
+    private static final int REQUEST_CODE = 22;
+    ImageView imageView;
+    private static final int MY_CAMERA_REQUEST_CODE = 100;
 
 
     @SuppressLint("MissingInflatedId")
@@ -131,7 +140,7 @@ implements AdapterView.OnItemSelectedListener
             public void onClick(View view) {
                 EventManager.addEvent(text_title.getText().toString(), text_date.getText().toString(),
                         text_location.getText().toString(), spin.getSelectedItem().toString(),
-                        text_creator.getText().toString(), text_description.getText().toString(), selectedImage);
+                        text_creator.getText().toString(), text_description.getText().toString(), selectedImage, photo);
 
                 Intent intent = new Intent(InsertEvent.this, MainActivity.class);
                 Log.d("Insert Event", "new Event");
@@ -139,6 +148,8 @@ implements AdapterView.OnItemSelectedListener
             }
         }
         );
+
+
 
         title = findViewById(R.id.textView_title);
         when_textview = findViewById(R.id.textView_when);
@@ -148,7 +159,14 @@ implements AdapterView.OnItemSelectedListener
         description = findViewById(R.id.textView_description);
         picture_uploading = findViewById(R.id.textView_upload_image);
         button_camera = findViewById(R.id.button_camera);
+        imageView = findViewById(R.id.image_preview);
 
+        button_camera.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                takePicture();
+            }
+        });
 
         // -------------------- Navigation Bar ----------------------------------
         // drawer layout instance to toggle the menu icon to open
@@ -171,6 +189,26 @@ implements AdapterView.OnItemSelectedListener
 
     }
 
+    private void takePicture() {
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+            if (checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                requestPermissions(new String[]{Manifest.permission.CAMERA}, MY_CAMERA_REQUEST_CODE);
+                Intent camera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(camera,REQUEST_CODE);
+            }
+            else{
+                Intent camera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(camera,REQUEST_CODE);
+            }
+
+        }
+
+
+    }
+
+
+
+
     @Override
     public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long id) {
         Toast.makeText(getApplicationContext(), departments[position], Toast.LENGTH_LONG).show();
@@ -187,11 +225,17 @@ implements AdapterView.OnItemSelectedListener
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode,@Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK && data != null) {
+        logStateChange("ActivityResult wird aufgerufen");
+
+        if (requestCode == REQUEST_CODE && resultCode == RESULT_OK){
+            photo = (Bitmap) data.getExtras().get("data");
+            imageView.setImageBitmap(photo);
+
+        }
+        else if (resultCode == RESULT_OK && data != null) {
             selectedImage = data.getData();
-            ImageView imageView = findViewById(R.id.image_preview);
             imageView.setImageURI(selectedImage);
         }
     }
@@ -277,6 +321,9 @@ implements AdapterView.OnItemSelectedListener
                 Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 startActivityForResult(intent, 3);
             }
+
+        }
+        else if (requestCode == 100){
 
         }
     }
