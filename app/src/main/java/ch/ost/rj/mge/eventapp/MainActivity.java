@@ -81,8 +81,6 @@ public class MainActivity extends AppCompatActivity
         aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spin.setAdapter(aa);
 
-        String department = spin.getSelectedItem().toString();
-
         // -------------------- Navigation Bar ----------------------------------
         // drawer layout instance to toggle the menu icon to open
         // drawer and back button to close drawer
@@ -106,6 +104,7 @@ public class MainActivity extends AppCompatActivity
     public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long id) {
         logStateChange("onItemSelected");
         Toast.makeText(getApplicationContext(), departments[position], Toast.LENGTH_LONG).show();
+        dep_filter = departments[position];
         adapter.list = EventManager.getEvents(departments[position]);
         adapter.notifyDataSetChanged();
     }
