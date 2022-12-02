@@ -9,11 +9,10 @@ Im MainFeed kann man die Elemente nach Departement Filtern. Falls einem ein Even
 
 Punkte:
 
-Funktion Pro Screen
-Dark und Lightmode 
-Integration von Hardware
-Integration der Gallerie
-
-Speichern der Elemente
-Filter der Elemente im Mainfeed
-Menüanzeige
+Funktion Pro Screen,
+Dark und Lightmode, 
+Integration von Hardware,
+Integration der Gallerie,
+Speichern der Elemente,
+Filter der Elemente im Mainfeed,
+Menüanzeige.
