@@ -2,22 +2,12 @@ package ch.ost.rj.mge.eventapp;
 
 import static ch.ost.rj.mge.eventapp.MainActivity.logStateChange;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.media.Image;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -35,6 +25,12 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.material.navigation.NavigationView;
 
@@ -71,9 +67,8 @@ implements AdapterView.OnItemSelectedListener
     public TextView description;
     public TextView picture_uploading;
     public Button button_camera;
-    public ImageView image_camera;
+    public ImageView imageView;
     private static final int REQUEST_CODE = 22;
-    ImageView imageView;
     private static final int MY_CAMERA_REQUEST_CODE = 100;
 
 
@@ -100,12 +95,11 @@ implements AdapterView.OnItemSelectedListener
         button_gallery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     if(getApplicationContext().checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED){
                         Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                         startActivityForResult(intent, 3);
-                    }
-                    else{
+                    } else {
                     requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},1);
                     }
                 }
@@ -182,13 +176,12 @@ implements AdapterView.OnItemSelectedListener
     }
 
     private void takePicture() {
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
                 requestPermissions(new String[]{Manifest.permission.CAMERA}, MY_CAMERA_REQUEST_CODE);
                 Intent camera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 startActivityForResult(camera,REQUEST_CODE);
-            }
-            else{
+            } else {
                 Intent camera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 startActivityForResult(camera,REQUEST_CODE);
             }
@@ -219,8 +212,7 @@ implements AdapterView.OnItemSelectedListener
             photo = (Bitmap) data.getExtras().get("data");
             imageView.setImageBitmap(photo);
 
-        }
-        else if (resultCode == RESULT_OK && data != null) {
+        } else if (resultCode == RESULT_OK && data != null) {
             selectedImage = data.getData();
             imageView.setImageURI(selectedImage);
         }
@@ -249,8 +241,7 @@ implements AdapterView.OnItemSelectedListener
                 description.setVisibility(View.GONE);
                 picture_uploading.setVisibility(View.GONE);
                 button_camera.setVisibility(View.GONE);
-            }
-            else{
+            } else {
                 button_ok.setVisibility(View.VISIBLE);
                 spin.setVisibility(View.VISIBLE);
                 text_title.setVisibility(View.VISIBLE);
@@ -311,11 +302,5 @@ implements AdapterView.OnItemSelectedListener
                 startActivityForResult(intent, 3);
             }
         }
-        else if (requestCode == 100){
-
-        }
     }
-
-
-
 }

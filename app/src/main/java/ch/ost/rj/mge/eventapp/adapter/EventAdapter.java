@@ -4,14 +4,9 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import ch.ost.rj.mge.eventapp.ClickListiner;
@@ -21,7 +16,7 @@ import ch.ost.rj.mge.eventapp.model.Event;
 
 public class EventAdapter extends RecyclerView.Adapter<EventViewHolder> {
 
-    public List<Event> list = Collections.emptyList();
+    public List<Event> list;
     Context context;
     ClickListiner listener;
 
@@ -38,8 +33,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventViewHolder> {
 
         View view = inflater.inflate(R.layout.event_item, parent, false);
 
-        EventViewHolder viewHolder = new EventViewHolder(view);
-        return viewHolder;
+        return new EventViewHolder(view);
     }
 
     @Override

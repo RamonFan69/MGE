@@ -1,10 +1,5 @@
 package ch.ost.rj.mge.eventapp;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.drawerlayout.widget.DrawerLayout;
-
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -15,9 +10,12 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.google.android.material.navigation.NavigationView;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.drawerlayout.widget.DrawerLayout;
 
-import java.util.ArrayList;
+import com.google.android.material.navigation.NavigationView;
 
 import ch.ost.rj.mge.eventapp.model.Event;
 import ch.ost.rj.mge.eventapp.model.EventManager;
@@ -63,10 +61,9 @@ public class EventViewer extends AppCompatActivity {
         description = findViewById(R.id.text_description);
         description.setText(event.description);
         ImageView photo = findViewById(R.id.image);
-        if (event.photo instanceof Bitmap){
+        if (event.photo instanceof Bitmap) {
             photo.setImageBitmap(event.photo);
-        }
-        else{
+        } else {
             photo.setImageURI(event.image);
         }
 
@@ -79,7 +76,6 @@ public class EventViewer extends AppCompatActivity {
                 EventViewer.this.startActivity(intent);
             }
         });
-
 
 
         // -------------------- Navigation Bar ----------------------------------

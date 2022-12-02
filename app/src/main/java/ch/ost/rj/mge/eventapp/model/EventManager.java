@@ -5,10 +5,10 @@ import android.net.Uri;
 import android.os.Build;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 
 public class EventManager {
     private static ArrayList<Event> events;
-    private static ArrayList<Event> filtered_events;
     private static ArrayList<Event> savedEvents = new ArrayList<>();
 
     static {
@@ -30,7 +30,7 @@ public class EventManager {
 
     public static ArrayList<Event> getEvents(String dep)
     {
-        filtered_events = new ArrayList<>();
+        ArrayList<Event> filtered_events = new ArrayList<>();
 
         if(dep.equals("Alle"))
         {
@@ -54,7 +54,7 @@ public class EventManager {
     public static void sort(ArrayList<Event> list)
     {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            list.sort((e1, e2) -> e1.getDate().compareTo(e2.getDate()));
+            list.sort(Comparator.comparing(Event::getDate));
         }
     }
 
